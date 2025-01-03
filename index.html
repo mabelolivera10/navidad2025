@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mensaje Navidad Encoded</title>
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+<div class="valentines-day">
+  <div class="envelope"></div>
+  <div class="heart"></div>
+  <div class="text">CLICK AQUI ESTO ES PARA TI!</div>
+  <div class="front"></div>
+</div>
+
+<!-- Cuadro flotante -->
+<div class="overlay" id="nameModal">
+  <div class="modal">
+    <h2>Por favor, ingresa tu nombre</h2>
+    <input type="text" id="userName" placeholder="Tu nombre aquí" />
+    <span id="error-message" style="color: red; display: none;">Por favor, ingresa tu nombre.</span>
+    <br>
+    <button id="submitName">VER MENSAJE</button>
+  </div>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script>
+  $(document).ready(function () {
+    // Al hacer clic en la tarjeta
+    $('.valentines-day').click(function () {
+      // Mostrar el cuadro flotante
+      $('#nameModal').addClass('active');
+    });
+
+    // Manejar la entrada del nombre
+    $('#submitName').click(function () {
+      const nombre = $('#userName').val().trim();
+      const errorMessage = $('#error-message');
+
+      if (nombre) {
+        // Ocultar el mensaje de error si está visible
+        errorMessage.hide();
+
+        // Animar y ocultar los elementos del sobre
+        $('.envelope').fadeOut(800, function () {
+          // Ocultar todos los elementos secundarios de valentines-day
+          $('.valentines-day').find('.heart, .text, .front').hide();
+
+          // Redirigir a navidad.html con el nombre como parámetro
+          setTimeout(function () {
+            window.location.href = `navidad.html?name=${encodeURIComponent(nombre)}`;
+          }, 500);
+        });
+      } else {
+        // Mostrar el mensaje de error si no hay nombre
+        errorMessage.show();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
